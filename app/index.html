@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>経費申請モック | E2E Demo</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="header">
+      <h1>経費申請モック</h1>
+      <p class="subtitle">B2B SaaS E2E デモ（学習用・架空アプリ）</p>
+    </header>
+
+    <main class="container">
+      <!-- ログイン -->
+      <section id="login-section" data-testid="login-section">
+        <h2>ログイン</h2>
+        <form id="login-form" data-testid="login-form">
+          <label for="email">メールアドレス</label>
+          <input
+            id="email"
+            name="email"
+            type="email"
+            data-testid="email-input"
+            placeholder="user@example.com"
+            required
+          />
+          <label for="password">パスワード</label>
+          <input
+            id="password"
+            name="password"
+            type="password"
+            data-testid="password-input"
+            placeholder="password"
+            required
+          />
+          <p id="login-error" class="error" data-testid="login-error" hidden></p>
+          <button type="submit" data-testid="login-button">ログイン</button>
+        </form>
+      </section>
+
+      <!-- 申請フォーム（ログイン後表示） -->
+      <section id="app-section" data-testid="app-section" hidden>
+        <div class="toolbar">
+          <span data-testid="user-greeting">こんにちは、<strong id="user-name"></strong> さん</span>
+          <button type="button" id="logout-button" data-testid="logout-button">ログアウト</button>
+        </div>
+
+        <h2>経費を申請</h2>
+        <form id="expense-form" data-testid="expense-form">
+          <label for="title">用途</label>
+          <input id="title" name="title" data-testid="title-input" placeholder="交通費" required />
+
+          <label for="amount">金額（円）</label>
+          <input id="amount" name="amount" type="number" data-testid="amount-input" required />
+
+          <label for="category">勘定科目</label>
+          <select id="category" name="category" data-testid="category-select">
+            <option value="travel">旅費交通費</option>
+            <option value="supplies">消耗品費</option>
+            <option value="entertainment">交際費</option>
+          </select>
+
+          <p id="form-error" class="error" data-testid="form-error" hidden></p>
+          <button type="submit" data-testid="submit-expense">申請する</button>
+        </form>
+
+        <h2>申請一覧</h2>
+        <p id="empty-message" data-testid="empty-message">まだ申請がありません。</p>
+        <ul id="expense-list" data-testid="expense-list"></ul>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p>学習用の架空アプリです（特定の商用サービスとは無関係）</p>
+    </footer>
+
+    <script src="app.js"></script>
+  </body>
+</html>

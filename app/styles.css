@@ -1,0 +1,150 @@
+:root {
+  --bg: #f4f6f8;
+  --card: #fff;
+  --primary: #1a56db;
+  --primary-hover: #1344b0;
+  --danger: #c81e1e;
+  --border: #d1d5db;
+  --text: #111827;
+  --muted: #6b7280;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.header,
+.footer {
+  padding: 1rem 1.5rem;
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+}
+
+.footer {
+  border-top: 1px solid var(--border);
+  border-bottom: none;
+  color: var(--muted);
+  font-size: 0.875rem;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+
+.container {
+  max-width: 560px;
+  margin: 2rem auto;
+  padding: 0 1rem 3rem;
+}
+
+section {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+
+h1,
+h2 {
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  margin-top: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+input,
+select,
+button {
+  width: 100%;
+  margin-top: 0.35rem;
+  padding: 0.55rem 0.65rem;
+  font-size: 1rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+}
+
+button {
+  margin-top: 1rem;
+  background: var(--primary);
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+button:hover {
+  background: var(--primary-hover);
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+}
+
+#logout-button {
+  width: auto;
+  margin-top: 0;
+  padding: 0.4rem 0.75rem;
+  background: #fff;
+  color: var(--text);
+  border: 1px solid var(--border);
+}
+
+.error {
+  color: var(--danger);
+  font-size: 0.875rem;
+  margin: 0.5rem 0 0;
+}
+
+#expense-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#expense-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid var(--border);
+  gap: 0.5rem;
+}
+
+#expense-list li:last-child {
+  border-bottom: none;
+}
+
+.expense-meta {
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.delete-btn {
+  width: auto;
+  margin: 0;
+  padding: 0.35rem 0.6rem;
+  font-size: 0.8rem;
+  background: #fff;
+  color: var(--danger);
+  border: 1px solid var(--danger);
+}
