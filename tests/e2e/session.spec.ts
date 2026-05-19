@@ -1,9 +1,10 @@
 import { test, expect } from '@playwright/test';
-import { login } from './helpers';
+import { ExpenseAppPage } from '../pages/expense-app.page';
 
 test('ログアウトするとログイン画面に戻る', async ({ page }) => {
-  await login(page);
-  await page.getByTestId('logout-button').click();
+  const app = new ExpenseAppPage(page);
+  await app.login();
+  await app.logout();
 
   await expect(page.getByTestId('login-section')).toBeVisible();
   await expect(page.getByTestId('app-section')).toBeHidden();

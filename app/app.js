@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'expense-mock-expenses';
+const SESSION_KEY = 'expense-mock-session';
 
 const loginSection = document.getElementById('login-section');
 const appSection = document.getElementById('app-section');
@@ -32,6 +33,7 @@ function saveExpenses(items) {
 }
 
 function showLogin() {
+  localStorage.removeItem(SESSION_KEY);
   loginSection.hidden = false;
   appSection.hidden = true;
   loginError.hidden = true;
@@ -39,10 +41,27 @@ function showLogin() {
 }
 
 function showApp(name) {
+  localStorage.setItem(SESSION_KEY, JSON.stringify({ name }));
   loginSection.hidden = true;
   appSection.hidden = false;
   userNameEl.textContent = name;
   renderExpenses();
+}
+
+function restoreSession() {
+  try {
+    const raw = localStorage.getItem(SESSION_KEY);
+    if (!raw) return false;
+    const { name } = JSON.parse(raw);
+    if (!name) return false;
+    loginSection.hidden = true;
+    appSection.hidden = false;
+    userNameEl.textContent = name;
+    renderExpenses();
+    return true;
+  } catch {
+    return false;
+  }
 }
 
 function renderExpenses() {
@@ -135,6 +154,12 @@ expenseForm.addEventListener('submit', (e) => {
 // デモ用: 毎回同じ初期状態にしたい場合は localStorage をクリア可能
 if (new URLSearchParams(location.search).get('reset') === '1') {
   localStorage.removeItem(STORAGE_KEY);
+  localStorage.removeItem(SESSION_KEY);
+  const url = new URL(window.location.href);
+  url.searchParams.delete('reset');
+  window.history.replaceState(null, '', url.pathname + url.search + url.hash);
 }
 
-showLogin();
+if (!restoreSession()) {
+  showLogin();
+}
