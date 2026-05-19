@@ -2,15 +2,20 @@
   "name": "expense-e2e-demo",
   "version": "1.0.0",
   "private": true,
-  "description": "B2B-style expense mock app with Playwright E2E and CI",
+  "description": "B2B-style expense mock with Playwright E2E, API tests, and runn",
   "scripts": {
     "start": "npx --yes serve app -l 4173",
+    "api": "node api/server.js",
     "test": "playwright test",
-    "test:ui": "playwright test --ui",
-    "test:headed": "playwright test --headed",
+    "test:e2e": "playwright test --project=e2e",
+    "test:api": "playwright test --project=api",
+    "test:ui": "playwright test --ui --project=e2e",
+    "test:headed": "playwright test --headed --project=e2e",
+    "test:runn": "runn run runn/*.yml",
     "report": "playwright show-report"
   },
   "devDependencies": {
+    "@axe-core/playwright": "^4.10.1",
     "@playwright/test": "^1.52.0",
     "@types/node": "^22.15.0",
     "typescript": "^5.8.0"

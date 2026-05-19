@@ -1,0 +1,64 @@
+desc: 経費 API フロー — login → create → list → delete
+runners:
+  req: ${API_BASE:-http://127.0.0.1:4174}
+steps:
+  - desc: データリセット
+    req:
+      /api/admin/reset:
+        post:
+          body:
+            application/json: {}
+
+  - desc: ログイン
+    req:
+      /api/auth/login:
+        post:
+          body:
+            application/json:
+              email: user@example.com
+              password: password
+    test: current.res.status == 200
+    bind:
+      token: current.res.body.token
+
+  - desc: 経費作成
+    req:
+      /api/expenses:
+        post:
+          headers:
+            Authorization: "Bearer {{ token }}"
+            Content-Type: application/json
+          body:
+            application/json:
+              title: runn交通費
+              amount: 880
+              category: travel
+    test: current.res.status == 201
+    bind:
+      expenseId: current.res.body.item.id
+
+  - desc: 一覧に1件
+    req:
+      /api/expenses:
+        get:
+          headers:
+            Authorization: "Bearer {{ token }}"
+    test: |
+      current.res.status == 200
+      && len(current.res.body.items) == 1
+
+  - desc: 削除
+    req:
+      /api/expenses/{{ expenseId }}:
+        delete:
+          headers:
+            Authorization: "Bearer {{ token }}"
+    test: current.res.status == 204
+
+  - desc: 一覧が空
+    req:
+      /api/expenses:
+        get:
+          headers:
+            Authorization: "Bearer {{ token }}"
+    test: len(current.res.body.items) == 0

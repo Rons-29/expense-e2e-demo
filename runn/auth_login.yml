@@ -1,0 +1,20 @@
+desc: POST /api/auth/login — 成功
+runners:
+  req: ${API_BASE:-http://127.0.0.1:4174}
+vars:
+  email: user@example.com
+  password: password
+steps:
+  - desc: ログインして token を取得
+    req:
+      /api/auth/login:
+        post:
+          headers:
+            Content-Type: application/json
+          body:
+            application/json:
+              email: "{{ vars.email }}"
+              password: "{{ vars.password }}"
+    test: |
+      current.res.status == 200
+      && current.res.body.token != ""

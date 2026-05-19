@@ -1,67 +1,68 @@
 # expense-e2e-demo
 
-B2B 風の**経費申請モック**と **Playwright E2E** の学習・ポートフォリオ用リポジトリです。  
+B2B 風の**経費申請モック**と **Playwright（E2E + API）** の学習・ポートフォリオ用リポジトリです。  
 架空アプリであり、特定の商用サービスとは無関係です。
 
 ## 含まれるもの
 
-| 項目 | 内容 |
-|------|------|
-| デモアプリ | 静的 HTML + JS（ログイン → 経費申請 → 一覧・削除） |
-| E2E | Playwright **17本**（Page Object + クリティカルパス） |
-| CI | GitHub Actions（`main` push / PR） |
+| 層 | 内容 |
+|----|------|
+| UI | 静的 HTML/JS（`app/`）— ログイン → 経費申請 → 一覧・削除 |
+| API | Node HTTP API（`api/`）— 認証・経費 CRUD |
+| E2E | Playwright **19本**（POM・クリティカルパス・a11y smoke） |
+| APIテスト | Playwright `request` **7本** |
+| runn | `runn/` にシナリオ2本（任意・Go要） |
+| CI | GitHub Actions |
 
 ## クイックスタート
 
 ```bash
 cd ~/project/expense-e2e-demo
 npm install
-npx playwright install chromium
+npx playwright install chromium   # 初回のみ（数分）
+```
+
+**速い確認（分割推奨）**
+
+```bash
+npm run test:api    # 約10秒・ブラウザ不要
+npm run test:e2e    # 約20秒
+```
+
+全部まとめて:
+
+```bash
 npm test
 ```
 
-UIモード:
+| コマンド | 用途 |
+|----------|------|
+| `npm start` | UIのみ http://127.0.0.1:4173 |
+| `npm run api` | APIのみ http://127.0.0.1:4174 |
+| `npm run test:ui` | E2E UIモード |
 
-```bash
-npm run test:ui
-```
-
-アプリのみ:
-
-```bash
-npm start
-# http://127.0.0.1:4173
-```
-
-### デモ用ログイン
+### デモ用ログイン（UI / API 共通）
 
 | 項目 | 値 |
 |------|-----|
 | メール | `user@example.com` |
 | パスワード | `password` |
 
-## テスト一覧（17本）
+## テストピラミッド
 
-| グループ | 内容 |
-|----------|------|
-| **クリティカルパス** | ログイン → 申請 → 削除 → ログアウト（1本） |
-| **ログイン** | 画面表示、誤認証、パスワード誤り、成功 |
-| **経費申請** | 登録、勘定科目3種、フォームリセット、用途/金額バリデーション、複数件、部分削除 |
-| **永続化** | リロード後のセッション・一覧、再ログイン後のデータ残存 |
-| **セッション** | ログアウト |
-
-構成: `tests/pages/expense-app.page.ts`（Page Object）+ `tests/e2e/*.spec.ts`
+詳細: [docs/test-pyramid.md](docs/test-pyramid.md)
 
 ## リポジトリ
 
 https://github.com/Rons-29/expense-e2e-demo
 
-## 設計メモ（面接・ブログ用）
+## 面接で話すとき
 
-- E2E は**ログイン → 申請 → 一覧**のクリティカルパスを1本で担保
-- `data-testid` でセレクタを安定化
-- 本番相当では E2E は厳選し、API / コンポーネントテストと役割分担する（テストピラミッド）
+- E2E は**クリティカルパス**に厳選（1本 + 必要な画面検証）
+- API は**契約・バリデーション**を高速に回す
+- `data-testid` / Page Object で保守性を確保
+- runn は LayerX でも使われるツールとして学習用に `runn/` を用意（任意）
 
 ## License
 
-MIT（必要に応じて変更してください）
+MIT
