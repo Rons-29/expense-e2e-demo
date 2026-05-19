@@ -48,15 +48,9 @@ npm start
 - 申請削除
 - ログアウト
 
-## GitHub に載せる手順
+## リポジトリ
 
-```bash
-cd ~/project/expense-e2e-demo
-git init
-git add .
-git commit -m "feat: expense mock with Playwright E2E and CI"
-gh repo create expense-e2e-demo --public --source=. --push
-```
+https://github.com/Rons-29/expense-e2e-demo
 
 ## 設計メモ（面接・ブログ用）
 
