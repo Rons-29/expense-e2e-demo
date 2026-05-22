@@ -56,12 +56,7 @@ npm test
 
 https://github.com/Rons-29/expense-e2e-demo
 
-## 面接で話すとき
 
-- E2E は**クリティカルパス**に厳選（1本 + 必要な画面検証）
-- API は**契約・バリデーション**を高速に回す
-- `data-testid` / Page Object で保守性を確保
-- runn は LayerX でも使われるツールとして学習用に `runn/` を用意（任意）
 
 ## License
 
